@@ -13,28 +13,37 @@ class CurrentGame {
     this.winner = null;
   }
 
-  // Pseudo private methods
-  _pointForPlayer(player) {
-    const newScore = gameScoreUtils.increaseScore(this[player].score);
-    newScore !== "win"
-      ? this[player] = {...this[player], score: newScore}
-      : this.winner = this[player].name;
+  updateScores(scoreP1, scoreP2) {
+    this.player1.score = scoreP1;
+    this.player2.score = scoreP2;
   }
 
   // Pseudo public methods
   pointForP1() {
-    this._pointForPlayer("player1");
+    console.log("Player1 scores:");
+    const [p1Score, p2Score] = gameScoreUtils.increaseScore(this.player1.score, this.player2.score);
+
+    this.updateScores(p1Score, p2Score);
+
+    if (p1Score === "win") {
+      this.winner = this.player1.name;
+    }
   }
 
   pointForP2() {
-    this._pointForPlayer("player2");
+    console.log("Player2 scores:");
+    const [p2Score, p1Score] = gameScoreUtils.increaseScore(this.player2.score, this.player1.score);
+
+    this.updateScores(p1Score, p2Score);
+
+    if(p2Score === "win") {
+      this.winner = this.player2.name;
+    }
   }
 
   displayScore() {
-    return `
-    Game score:
-      ${this.player1.name} : ${this.player1.score}
-      ${this.player2.name} : ${this.player2.score}
+    return `    ${this.player1.name} : ${this.player1.score}
+    ${this.player2.name} : ${this.player2.score}
     `;
   }
 }

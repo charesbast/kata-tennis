@@ -4,44 +4,95 @@ const {increaseScore} = require("./gameScore.utils");
 
 describe("gameScore utils", () => {
   describe("increaseScore", () => {
-    describe("when currentScore is '0'", () => {
-      const currentScore = '0';
+    describe("When opponnent's score is less than 40", () => {
+      const opponnentScore = '30';
 
-      it("should return '15'", () => {
-        expect(increaseScore(currentScore)).to.equal('15');
+      describe("when playerScore is '0'", () => {
+        const playerScore = '0';
+
+        it("should return '15' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['15', opponnentScore]);
+        });
+      });
+
+      describe("when playerScore is '15'", () => {
+        const playerScore = '15';
+
+        it("should return '30' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['30', opponnentScore]);
+        });
+      });
+
+      describe("when playerScore is '30'", () => {
+        const playerScore = '30';
+
+        it("should return '40' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['40', opponnentScore]);
+        });
+      });
+
+      describe("when playerScore is '40'", () => {
+        const playerScore = '40';
+
+        it("should return 'win' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['win', opponnentScore]);
+        });
       });
     });
 
-    describe("when currentScore is '15'", () => {
-      const currentScore = '15';
+    describe("when the opponnent's score is 40", () => {
+      const opponnentScore = '40';
 
-      it("should return '30'", () => {
-        expect(increaseScore(currentScore)).to.equal('30');
+      describe("when playerScore is '0'", () => {
+        const playerScore = '0';
+
+        it("should return '15' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['15', opponnentScore]);
+        });
+      });
+
+      describe("when playerScore is '15'", () => {
+        const playerScore = '15';
+
+        it("should return '30' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['30', opponnentScore]);
+        });
+      });
+
+      describe("when playerScore is '30'", () => {
+        const playerScore = '30';
+
+        it("should return '40' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['40', opponnentScore]);
+        });
+      });
+
+      describe("when playerScore is '40'", () => {
+        const playerScore = '40';
+
+        it("should return 'advantage' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['advantage', opponnentScore]);
+        });
+      });
+
+      describe("when playerScore is 'advantage'", () => {
+        const playerScore = 'advantage';
+
+        it("should return 'win' for the player", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['win', opponnentScore]);
+        });
       });
     });
 
-    describe("when currentScore is '30'", () => {
-      const currentScore = '30';
+    describe("when the opponnent's score is 'advantage'", () => {
+      const opponnentScore = 'advantage';
 
-      it("should return '40'", () => {
-        expect(increaseScore(currentScore)).to.equal('40');
-      });
-    });
+      describe("when player score is 40", () => {
+        const playerScore = '40';
 
-    describe("when currentScore is '40'", () => {
-      const currentScore = '40';
-
-      it("should return 'win'", () => {
-        expect(increaseScore(currentScore)).to.equal('win');
-      });
-    });
-
-    describe("when currentScore is 'win'", () => {
-      const currentScore = 'win';
-
-      it("should throw an error", () => {
-        const badIncrease = () => increaseScore(currentScore);
-        expect(badIncrease).to.throw(Error, "The player already won the game");
+        it("should return ['40', '40']", () => {
+          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['40', '40']);
+        });
       });
     });
   });
