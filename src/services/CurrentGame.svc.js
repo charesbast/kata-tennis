@@ -1,4 +1,4 @@
-const gameScoreUtils = require("../utils/gameScore.utils");
+const refereeSvc = require("./referee.svc");
 
 class CurrentGame {
   constructor(nameP1, nameP2) {
@@ -21,7 +21,7 @@ class CurrentGame {
   // Pseudo public methods
   pointForP1() {
     console.log("Player1 scores:");
-    const [p1Score, p2Score] = gameScoreUtils.increaseScore(this.player1.score, this.player2.score);
+    const [p1Score, p2Score] = refereeSvc.updateGameScore(this.player1.score, this.player2.score);
 
     this.updateScores(p1Score, p2Score);
 
@@ -32,7 +32,7 @@ class CurrentGame {
 
   pointForP2() {
     console.log("Player2 scores:");
-    const [p2Score, p1Score] = gameScoreUtils.increaseScore(this.player2.score, this.player1.score);
+    const [p2Score, p1Score] = refereeSvc.updateGameScore(this.player2.score, this.player1.score);
 
     this.updateScores(p1Score, p2Score);
 
@@ -41,7 +41,7 @@ class CurrentGame {
     }
   }
 
-  displayScore() {
+  formatScoreResult() {
     return `    ${this.player1.name} : ${this.player1.score}
     ${this.player2.name} : ${this.player2.score}
     `;

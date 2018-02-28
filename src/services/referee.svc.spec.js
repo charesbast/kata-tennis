@@ -1,9 +1,9 @@
 const {expect} = require("chai");
 
-const {increaseScore} = require("./gameScore.utils");
+const {updateGameScore} = require("./referee.svc");
 
 describe("gameScore utils", () => {
-  describe("increaseScore", () => {
+  describe("updateGameScore", () => {
     describe("When opponnent's score is less than 40", () => {
       const opponnentScore = '30';
 
@@ -11,7 +11,7 @@ describe("gameScore utils", () => {
         const playerScore = '0';
 
         it("should return '15' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['15', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['15', opponnentScore]);
         });
       });
 
@@ -19,7 +19,7 @@ describe("gameScore utils", () => {
         const playerScore = '15';
 
         it("should return '30' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['30', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['30', opponnentScore]);
         });
       });
 
@@ -27,7 +27,7 @@ describe("gameScore utils", () => {
         const playerScore = '30';
 
         it("should return '40' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['40', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['40', opponnentScore]);
         });
       });
 
@@ -35,7 +35,7 @@ describe("gameScore utils", () => {
         const playerScore = '40';
 
         it("should return 'win' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['win', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['win', opponnentScore]);
         });
       });
     });
@@ -47,7 +47,7 @@ describe("gameScore utils", () => {
         const playerScore = '0';
 
         it("should return '15' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['15', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['15', opponnentScore]);
         });
       });
 
@@ -55,7 +55,7 @@ describe("gameScore utils", () => {
         const playerScore = '15';
 
         it("should return '30' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['30', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['30', opponnentScore]);
         });
       });
 
@@ -63,7 +63,7 @@ describe("gameScore utils", () => {
         const playerScore = '30';
 
         it("should return '40' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['40', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['40', opponnentScore]);
         });
       });
 
@@ -71,7 +71,7 @@ describe("gameScore utils", () => {
         const playerScore = '40';
 
         it("should return 'advantage' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['advantage', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['advantage', opponnentScore]);
         });
       });
 
@@ -79,7 +79,7 @@ describe("gameScore utils", () => {
         const playerScore = 'advantage';
 
         it("should return 'win' for the player", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['win', opponnentScore]);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['win', opponnentScore]);
         });
       });
     });
@@ -91,7 +91,7 @@ describe("gameScore utils", () => {
         const playerScore = '40';
 
         it("should return ['40', '40']", () => {
-          expect(increaseScore(playerScore, opponnentScore)).to.deep.equal(['40', '40']);
+          expect(updateGameScore(playerScore, opponnentScore)).to.deep.equal(['40', '40']);
         });
       });
     });

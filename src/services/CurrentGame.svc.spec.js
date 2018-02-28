@@ -2,7 +2,7 @@ const chai = require("chai");
 const sinon = require("sinon");
 const sinonChai = require("sinon-chai");
 
-const gameScoreUtils = require("../utils/gameScore.utils");
+const referreeSvc = require("./referee.svc");
 const CurrentGameSvc = require("./CurrentGame.svc");
 
 const {expect} = chai;
@@ -10,11 +10,11 @@ chai.use(sinonChai);
 
 describe("CurrentGame service", () => {
   let sandbox;
-  let increaseScoreStub;
+  let updateGameScoreStub;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    increaseScoreStub = sandbox.stub(gameScoreUtils, "increaseScore");
+    updateGameScoreStub = sandbox.stub(referreeSvc, "updateGameScore");
   });
 
   afterEach(() => {
@@ -50,22 +50,22 @@ describe("CurrentGame service", () => {
     const p2Name = "player2";
     const CurrentGame = new CurrentGameSvc(p1Name, p2Name);
 
-    it("Should update players scores with the results of increaseScore util", () => {
+    it("Should update players scores with the results of updateGameScore", () => {
       const updatedScore = ['30', '40'];
-      increaseScoreStub.returns(updatedScore);
+      updateGameScoreStub.returns(updatedScore);
 
       CurrentGame.player1.score = '15';
       CurrentGame.player2.score = '40';
       CurrentGame.pointForP1();
 
-      expect(increaseScoreStub).to.have.been.calledWith('15', '40');
+      expect(updateGameScoreStub).to.have.been.calledWith('15', '40');
       expect(CurrentGame.player1.score).to.equal(updatedScore[0]);
       expect(CurrentGame.player2.score).to.equal(updatedScore[1]);
     });
 
     describe("When the player1's new score is 'win'", () => {
       beforeEach(() => {
-        increaseScoreStub.returns(["win", "30"]);
+        updateGameScoreStub.returns(["win", "30"]);
       });
 
       it("Should set the winner with player1's name", () => {
@@ -82,20 +82,20 @@ describe("CurrentGame service", () => {
 
     it("Should update players scores with the results of increaseScore util", () => {
       const updatedScore = ['40', '15'];
-      increaseScoreStub.returns(updatedScore);
+      updateGameScoreStub.returns(updatedScore);
 
       CurrentGame.player1.score = '15';
       CurrentGame.player2.score = '30';
       CurrentGame.pointForP2();
 
-      expect(increaseScoreStub).to.have.been.calledWith('30', '15');
+      expect(updateGameScoreStub).to.have.been.calledWith('30', '15');
       expect(CurrentGame.player2.score).to.equal(updatedScore[0]);
       expect(CurrentGame.player1.score).to.equal(updatedScore[1]);
     });
 
     describe("When the new score is 'win'", () => {
       beforeEach(() => {
-        increaseScoreStub.returns(["win", "0"]);
+        updateGameScoreStub.returns(["win", "0"]);
       });
 
       it("Should set the winner with player1's name", () => {
@@ -114,7 +114,7 @@ describe("CurrentGame service", () => {
       CurrentGame.player1.score = '40';
       CurrentGame.player2.score = '15';
 
-      const displayedScore = CurrentGame.displayScore();
+      const displayedScore = CurrentGame.formatScoreResult();
       expect(displayedScore.includes("player1 : 40")).to.be.true;
       expect(displayedScore.includes("player2 : 15")).to.be.true;
     });

@@ -14,7 +14,7 @@ function startMatch() {
       ? Game.pointForP1()
       : Game.pointForP2();
 
-    console.log(Game.displayScore());
+    console.log(Game.formatScoreResult());
   }
 
   console.log(`Winner: ${Game.winner}!`);
